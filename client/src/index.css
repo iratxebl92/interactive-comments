@@ -1,0 +1,27 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-display: "Satoshi", "sans-serif";
+  --breakpoint-3xl: 1920px;
+  --breakpoint-2xl: 1536px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-md: 768px; 
+  --breakpoint-sm: 640px;
+  --breakpoint-xs: 480px;
+  --color-primary-purple-600: hsl(238, 40%, 52%);
+  --color-primary-pink-400: hsl(358, 79%, 66%);
+  --color-primary-purple-200: hsl(239, 57%, 85%);
+  --color-primary-pink-200: hsl(357, 100%, 86%);
+  --color-neutral-grey-800: hsl(212, 24%, 26%);
+  --color-neutral-grey-500: hsl(211, 10%, 45%);
+  --color-neutral-grey-200: hsl(223, 19%, 93%);
+  --color-neutral-grey-50: hsl(228, 33%, 97%);
+  --color-neutral-white: hsl(0, 100%, 100%);
+  --color-green-2-950: #ff33ca;
+  /* ... */
+}
+
+body {
+  @apply m-0 flex justify-center items-center min-h-screen
+}
