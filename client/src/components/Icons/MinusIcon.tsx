@@ -1,6 +1,4 @@
 
-
-
 export const MinusIcon = () => {
   return (
     <svg 

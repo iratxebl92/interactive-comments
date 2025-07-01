@@ -1,9 +1,18 @@
 import { Comment } from "./Comment"
-
+import datos from '../../data/comments.json'
 
 
 export const CommentList = () => {
+  console.log(datos)
   return (
-   <Comment/>
+    <div className="flex flex-col gap-4">
+
+   {
+    datos.comments.map((comment) => (
+      <Comment data={comment} key={comment.id} />
+    ) )
+   }
+    </div>
+  
   )
 }
