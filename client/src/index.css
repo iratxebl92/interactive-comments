@@ -23,5 +23,5 @@
 }
 
 body {
-  @apply flex justify-center items-start min-h-screen mt-10 bg-neutral-grey-200
+  @apply flex justify-center items-start min-h-screen mt-10 bg-neutral-grey-50
 }
