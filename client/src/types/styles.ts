@@ -1,5 +1,5 @@
 export type CommentProps = {
-  id: number;
+  id: string;
   createdAt: string;
   score: number;
   content: string;

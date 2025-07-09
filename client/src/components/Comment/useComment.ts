@@ -6,6 +6,7 @@ export const useComment = () => {
 
 
  const handleUpdateScore = (data: CommentProps, action: 'plus' | 'minus') => {
+  if(currentUser.username === data.user.username) return null; // Evitar dar like a tus comentarios
   const hasLiked = data?.likes?.includes(currentUser.username);
   if (hasLiked && action === 'plus') return;
   if (!hasLiked && action === 'minus') return;

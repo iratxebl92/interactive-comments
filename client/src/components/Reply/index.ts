@@ -1,1 +1,1 @@
-export * from './Reply';
+export * from '././NewComment';
