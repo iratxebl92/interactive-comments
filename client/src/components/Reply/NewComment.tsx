@@ -2,6 +2,7 @@ import clsx from "clsx";
 import { useEffect, useId, useRef, useState, type ChangeEvent } from "react";
 import type { CommentProps } from "../../types/styles";
 import { useCommentsStore } from "../../store/store";
+import { Button } from "../core/Button";
 
 export const NewComment = ({
   isReply,
@@ -44,6 +45,7 @@ export const NewComment = ({
   };
 
   const handleSubmit = () => {
+    console.log(postContent)
     if (isReply) {
       // Si sólo está '@username ' sin texto añadido
       if (postContent.trim() === `@${username}` || postContent.trim() === "") {
@@ -97,6 +99,7 @@ export const NewComment = ({
         }
         return comment;
       });
+      console.log(prueba)
       setData(prueba);
     } else {
       setData((prev) => [...prev, newComment]); // Actualiza el estado en función del valor anterior
@@ -141,12 +144,7 @@ export const NewComment = ({
           width={"35px"}
           className="md:hidden"
         />
-        <button
-          className="bg-primary-purple-600 text-white font-bold px-4 py-2 rounded-md hover:bg-primary-purple-700 transition duration-300 ease-in-out hover:cursor-pointer"
-          onClick={handleSubmit}
-        >
-          SEND
-        </button>
+        <Button onClick={handleSubmit}> SEND </Button>
       </div>
     </div>
   );

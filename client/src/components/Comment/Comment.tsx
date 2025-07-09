@@ -9,12 +9,15 @@ import { useCommentsStore } from "../../store/store";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en.json";
 import { useEffect, useRef, useState, type ChangeEvent } from "react";
+import { Button } from "../core/Button";
 
 
 TimeAgo.addLocale(en);
 const timeAgo = new TimeAgo("en-US");
 
 export const Comment = ({ data }: { data: CommentProps }) => {
+  console.log(data, "dfaytaaaaaa")
+  
   const { currentUser, openCommentId, setOpenCommentId, data: storeData, setData } = useCommentsStore();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   useEffect(() => {
@@ -39,6 +42,7 @@ export const Comment = ({ data }: { data: CommentProps }) => {
       setOpenCommentId([...(openCommentId || []), id]);
     }
   };
+  console.log(postContent)
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setPostContent(e.target.value);
     //Si al dar a send ha habido error, esto hace que al escribir se quite el error, sin esto se mantendría hasta volver a dar a send.
@@ -49,36 +53,51 @@ export const Comment = ({ data }: { data: CommentProps }) => {
   const handleSubmit = () => {
     console.log(data, "DATA")
     
-    // const updateComment = [
-    //   ...data,
-    //   data.content: postContent
-    // ]
 
-    const UpdateComment = storeData.map((comment) => {
-         if (comment.id === data.id) {
-          return {
-            ...comment,
-            content: postContent
-          };
-        }
-         if (comment.replies?.some((reply) => reply.id === data.id)) {
-          return {
-            ...comment,
-            replies: comment.replies.map((reply) => {
-              if (reply.id === data.id) {
-                return {
-                  ...reply,
-                  content: postContent
-                };
-              }
-              return reply;
-            }),
-          };
-        }
-        return comment;
-    })
+   const UpdateComment = storeData.map((comment) => {
+  // Si es un comentario raíz
+  if (comment.id === data.id) {
+    return {
+      ...comment,
+      content: postContent,
+    };
+  }
+
+  // Si es una respuesta de primer nivel
+  if (comment.replies?.some((reply) => reply.id === data.id)) {
+    return {
+      ...comment,
+      replies: comment.replies.map((reply) =>
+        reply.id === data.id
+          ? { ...reply, content: postContent }
+          : reply
+      ),
+    };
+  }
+
+  // Si es una subrespuesta
+  if (comment.replies?.some((reply) =>
+    reply.replies?.some((subReply) => subReply.id === data.id)
+  )) {
+    return {
+      ...comment,
+      replies: comment.replies.map((reply) => ({
+        ...reply,
+        replies: reply.replies?.map((subReply) =>
+          subReply.id === data.id
+            ? { ...subReply, content: postContent }
+            : subReply
+        ),
+      })),
+    };
+  }
+
+  return comment;
+});
+
     setData(UpdateComment)
     setIsOpen(false)
+    setPostContent('')
   }
 
   return (
@@ -104,7 +123,9 @@ export const Comment = ({ data }: { data: CommentProps }) => {
               <button className="flex items-center gap-1 text-primary-pink-400 rounded-sm p-1 transition duration-300 ease-in-out hover:text-primary-pink-200 hover:cursor-pointer font-bold">
                 <Delete /> <span>Delete</span>
               </button>
-              <button className="flex items-center gap-1 text-primary-purple-600 rounded-sm p-1 transition duration-300 ease-in-out hover:text-primary-purple-200 hover:cursor-pointer font-bold">
+              <button 
+                onClick={() => setIsOpen(true)}
+                className="flex items-center gap-1 text-primary-purple-600 rounded-sm p-1 transition duration-300 ease-in-out hover:text-primary-purple-200 hover:cursor-pointer font-bold">
                 <Edit /> <span>Edit</span>
               </button>
             </div>
@@ -177,10 +198,7 @@ export const Comment = ({ data }: { data: CommentProps }) => {
               />
               <div className="flex justify-end">
 
-               <button
-          className="bg-primary-purple-600 text-white font-bold px-4 py-2 rounded-md hover:bg-primary-purple-700 transition duration-300 ease-in-out hover:cursor-pointer"
-          onClick={handleSubmit}
-        >UPDATE</button>
+               <Button onClick={handleSubmit} className="text-red-400"> UPDATE </Button>
               </div>
               {error && <p style={{ color: "red" }}>{error}</p>}
             </>
