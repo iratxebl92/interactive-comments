@@ -11,7 +11,7 @@ export const NewComment = ({
 }: {
   isReply?: boolean;
   username?: string;
-  data: CommentProps;
+  data?: CommentProps;
 }) => {
   const id = useId();
   const {
@@ -45,7 +45,6 @@ export const NewComment = ({
   };
 
   const handleSubmit = () => {
-    console.log(postContent)
     if (isReply) {
       // Si sólo está '@username ' sin texto añadido
       if (postContent.trim() === `@${username}` || postContent.trim() === "") {
@@ -59,9 +58,8 @@ export const NewComment = ({
       }
     }
 
-
     const updateOpenIds =
-      openCommentId && openCommentId.filter((comment) => comment !== data.id);
+      openCommentId && openCommentId.filter((comment) => comment !== data?.id);
     setOpenCommentId(updateOpenIds);
     const updateContent = username
       ? postContent.substring(postContent.indexOf(" "))
@@ -99,7 +97,7 @@ export const NewComment = ({
         }
         return comment;
       });
-      console.log(prueba)
+
       setData(prueba);
     } else {
       setData((prev) => [...prev, newComment]); // Actualiza el estado en función del valor anterior
@@ -110,7 +108,7 @@ export const NewComment = ({
   return (
     <div
       className={clsx(
-        "flex flex-col md:flex-row gap-4 rounded-2xl p-[27px] bg-neutral-white h-[14rem] sm:h-[10rem] mt-4"
+        "flex flex-col md:flex-row gap-4 rounded-2xl p-[27px] bg-neutral-white h-[14rem] sm:h-[13rem] md:h-[10rem] mt-4"
       )}
       data-testid="comment-container"
       aria-label="comment container"
@@ -126,7 +124,10 @@ export const NewComment = ({
       <div className="w-full h-full">
         <textarea
           ref={textareaRef}
-          className="border-1 h-full rounded-lg w-full placeholder:text-neutral-grey-500 p-4 max-w-full resize-none overflow-hidden"
+          className={clsx("border-1 rounded-lg w-full placeholder:text-neutral-grey-500 p-4 max-w-full resize-none overflow-hidden", {
+            "h-full": !error,
+            "h-[92%]": error
+          })}
           placeholder="Add a comment"
           name="reply"
           id="reply"
@@ -135,7 +136,7 @@ export const NewComment = ({
           value={postContent}
           onChange={handleChange}
         />
-        {error && <p style={{ color: "red" }}>{error}</p>}
+        {error && <p className="text-red-700 mb-4 text-center md:text-start">{error}</p>}
       </div>
       <div className="flex items-start gap-4 justify-between">
         <img
@@ -144,7 +145,7 @@ export const NewComment = ({
           width={"35px"}
           className="md:hidden"
         />
-        <Button onClick={handleSubmit}> SEND </Button>
+        <Button onClick={handleSubmit} className="bg-primary-purple-600"> SEND </Button>
       </div>
     </div>
   );

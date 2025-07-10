@@ -19,6 +19,8 @@ interface CommentsStore {
   setOpenComment: (open: boolean) => void;
   openCommentId: string[] | null;
   setOpenCommentId: (id: string[] | null) => void;
+  deleteOpenModal: boolean;
+  setDeleteOpenModal: (open: boolean) => void;
 }
 
 export const useCommentsStore = create<CommentsStore>()(
@@ -41,6 +43,8 @@ export const useCommentsStore = create<CommentsStore>()(
       setOpenComment: (open) => set(() => ({ openComment: open })),
       openCommentId: null,
       setOpenCommentId: (id) => set(() => ({ openCommentId: id })),
+      deleteOpenModal: false,
+      setDeleteOpenModal: (open) => set(() => ({deleteOpenModal: open}))
     }),
     {
       name: "comments-storage", // unique name for the storage

@@ -10,15 +10,16 @@ import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en.json";
 import { useEffect, useRef, useState, type ChangeEvent } from "react";
 import { Button } from "../core/Button";
+import { DeleteModal } from "./DeleteModal";
 
 
 TimeAgo.addLocale(en);
 const timeAgo = new TimeAgo("en-US");
 
 export const Comment = ({ data }: { data: CommentProps }) => {
-  console.log(data, "dfaytaaaaaa")
+
   
-  const { currentUser, openCommentId, setOpenCommentId, data: storeData, setData } = useCommentsStore();
+  const { currentUser, openCommentId, setOpenCommentId, data: storeData, setData, deleteOpenModal, setDeleteOpenModal } = useCommentsStore();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   useEffect(() => {
     if (textareaRef.current) {
@@ -42,7 +43,7 @@ export const Comment = ({ data }: { data: CommentProps }) => {
       setOpenCommentId([...(openCommentId || []), id]);
     }
   };
-  console.log(postContent)
+
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setPostContent(e.target.value);
     //Si al dar a send ha habido error, esto hace que al escribir se quite el error, sin esto se mantendría hasta volver a dar a send.
@@ -51,9 +52,6 @@ export const Comment = ({ data }: { data: CommentProps }) => {
     }
   };
   const handleSubmit = () => {
-    console.log(data, "DATA")
-    
-
    const UpdateComment = storeData.map((comment) => {
   // Si es un comentario raíz
   if (comment.id === data.id) {
@@ -99,6 +97,7 @@ export const Comment = ({ data }: { data: CommentProps }) => {
     setIsOpen(false)
     setPostContent('')
   }
+console.log(deleteOpenModal)
 
   return (
     <>
@@ -120,7 +119,9 @@ export const Comment = ({ data }: { data: CommentProps }) => {
           {/* Reply button (mobile only) */}
           {data.user.username === currentUser.username ? (
             <div className="sm:hidden flex gap-2">
-              <button className="flex items-center gap-1 text-primary-pink-400 rounded-sm p-1 transition duration-300 ease-in-out hover:text-primary-pink-200 hover:cursor-pointer font-bold">
+              <button className="flex items-center gap-1 text-primary-pink-400 rounded-sm p-1 transition duration-300 ease-in-out hover:text-primary-pink-200 hover:cursor-pointer font-bold"
+              onClick={() => setDeleteOpenModal(true)}
+              >
                 <Delete /> <span>Delete</span>
               </button>
               <button 
@@ -163,7 +164,9 @@ export const Comment = ({ data }: { data: CommentProps }) => {
             </div>
             {data.user.username === currentUser.username ? (
               <div className="hidden md:flex gap-2">
-                <button className="flex items-center gap-1 text-primary-pink-400 rounded-sm p-1 transition duration-300 ease-in-out hover:text-primary-pink-200 hover:cursor-pointer font-bold">
+                <button className="flex items-center gap-1 text-primary-pink-400 rounded-sm p-1 transition duration-300 ease-in-out hover:text-primary-pink-200 hover:cursor-pointer font-bold"
+                onClick={() => setDeleteOpenModal(true)}
+                >
                   <Delete /> <span>Delete</span>
                 </button>
                 <button
@@ -187,7 +190,7 @@ export const Comment = ({ data }: { data: CommentProps }) => {
             <>
               <textarea
                 ref={textareaRef}
-                className="border-1 h-[110px] rounded-lg w-full placeholder:text-neutral-grey-500 p-4 max-w-full resize-none overflow-hidden"
+                className="border-1 h-[110px] rounded-lg w-full placeholder:text-neutral-grey-500 p-4 max-w-full resize-none overflow-hidden my-4"
                 placeholder="Add a comment"
                 name="reply"
                 id="reply"
@@ -198,9 +201,13 @@ export const Comment = ({ data }: { data: CommentProps }) => {
               />
               <div className="flex justify-end">
 
-               <Button onClick={handleSubmit} className="text-red-400"> UPDATE </Button>
+               <Button onClick={handleSubmit} className="bg-primary-purple-600"> UPDATE </Button>
               </div>
-              {error && <p style={{ color: "red" }}>{error}</p>}
+              {error && 
+              <div className="">
+                <p className="text-red-700 pb-4 font-bold">{error}</p>
+              </div>
+              }
             </>
           ) : (
             <p className="text-neutral-grey-500 mt-2">
@@ -214,6 +221,7 @@ export const Comment = ({ data }: { data: CommentProps }) => {
           {/* Comment text */}
         </div>
       </div>
+      {deleteOpenModal && <DeleteModal/>}
     </>
   );
 };
