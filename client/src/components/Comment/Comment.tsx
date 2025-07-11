@@ -1,14 +1,11 @@
+import { useEffect, useRef, useState, type ChangeEvent } from "react";
 import clsx from "clsx";
-import { ReplyIcon } from "../Icons/ReplyIcon";
-import { LikeButton } from "./LikeButton";
-import { Delete } from "../Icons/Delete";
-import { Edit } from "../Icons/Edit";
-import { type CommentProps } from "../../types/styles";
-import { useCommentsStore } from "../../store/store";
-
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en.json";
-import { useEffect, useRef, useState, type ChangeEvent } from "react";
+import { LikeButton } from "../core/LikeButton";
+import { Delete, Edit, ReplyIcon } from "../Icons/";
+import { type CommentProps } from "../../types/styles";
+import { useCommentsStore } from "../../store/store";
 import { Button } from "../core/Button";
 import { DeleteModal } from "./DeleteModal";
 

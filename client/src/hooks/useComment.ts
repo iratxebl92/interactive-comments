@@ -1,5 +1,5 @@
-import { useCommentsStore } from "../../store/store";
-import type { CommentProps } from "../../types/styles";
+import { useCommentsStore } from "../store/store";
+import type { CommentProps } from "../types/styles";
 
 export const useComment = () => {
   const { currentUser, setData, data: StoreData } = useCommentsStore();

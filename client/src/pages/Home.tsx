@@ -1,5 +1,4 @@
-import { CommentList } from "../components/Comment"
-import { NewComment } from "../components/Reply"
+import { CommentList, NewComment } from "../components/Comment"
 
 export const Home = () => {
   return (

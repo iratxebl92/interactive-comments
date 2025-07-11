@@ -2,7 +2,7 @@ import { MinusIcon, PlusIcon } from "../Icons";
 
 import { type CommentProps } from "../../types/styles";
 
-import { useComment } from "./useComment";
+import { useComment } from "../../hooks/useComment";
 
 
 export const LikeButton = ({ data }: { data: CommentProps }) => {

@@ -1,9 +1,9 @@
-import { Comment } from "./Comment";
+
 import datos from "../../data/comments.json";
 import { useEffect } from "react";
 import { useCommentsStore } from "../../store/store";
-import { NewComment } from "../Reply/";
 import { AnimatedSection } from "../core/AnimatedSection";
+import { NewComment, Comment } from "./";
 
 export const CommentList = () => {
   const { data, setData, openCommentId } = useCommentsStore();
