@@ -18,7 +18,6 @@ const timeAgo = new TimeAgo("en-US");
 
 export const Comment = ({ data }: { data: CommentProps }) => {
 
-  
   const { currentUser, openCommentId, setOpenCommentId, data: storeData, setData, deleteOpenModal, setDeleteOpenModal } = useCommentsStore();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   useEffect(() => {
@@ -31,6 +30,13 @@ export const Comment = ({ data }: { data: CommentProps }) => {
   }, []);
   const [isOpen, setIsOpen] = useState(false);
   const [postContent, setPostContent] = useState<string>(data.content);
+
+ useEffect(() => {
+  if (isOpen) {
+    setPostContent(data.content);
+  }
+}, [isOpen, data.content]);
+  
   const [deleteComment, setDeleteComment] = useState<CommentProps | undefined>(undefined)
   const [error, setError] = useState("");
   if (!data.user) {
@@ -52,7 +58,14 @@ export const Comment = ({ data }: { data: CommentProps }) => {
       setError("");
     }
   };
+  console.log(postContent)
   const handleSubmit = () => {
+    console.log(postContent)
+      if (!postContent.trim()) {
+    setError("El comentario no puede estar vacío.");
+    return;
+  }
+
    const UpdateComment = storeData.map((comment) => {
   // Si es un comentario raíz
   if (comment.id === data.id) {
@@ -135,7 +148,7 @@ const handleDelete = (data: CommentProps) => {
             </div>
           ) : (
             <button
-              className="mt-4 sm:hidden flex items-center gap-1 text-primary-purple-600 rounded-sm p-1 transition duration-300 ease-in-out hover:text-primary-purple-200 hover:cursor-pointer font-bold"
+              className="sm:hidden flex items-center gap-1 text-primary-purple-600 rounded-sm p-1 transition duration-300 ease-in-out hover:text-primary-purple-200 hover:cursor-pointer font-bold"
               onClick={() => handleOpenReply(data.id)}
             >
               <ReplyIcon /> Reply
@@ -204,7 +217,7 @@ const handleDelete = (data: CommentProps) => {
               />
               <div className="flex justify-end">
 
-               <Button onClick={handleSubmit} className="bg-primary-purple-600"> UPDATE </Button>
+               <Button onClick={handleSubmit} className="bg-primary-purple-600 disabled:bg-neutral-400 disabled:cursor-not-allowed "  disabled={!postContent.trim()}> UPDATE </Button>
               </div>
               {error && 
               <div className="">
