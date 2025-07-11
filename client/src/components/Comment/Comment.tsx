@@ -31,6 +31,7 @@ export const Comment = ({ data }: { data: CommentProps }) => {
   }, []);
   const [isOpen, setIsOpen] = useState(false);
   const [postContent, setPostContent] = useState<string>(data.content);
+  const [deleteComment, setDeleteComment] = useState<CommentProps | undefined>(undefined)
   const [error, setError] = useState("");
   if (!data.user) {
     return null;
@@ -97,8 +98,10 @@ export const Comment = ({ data }: { data: CommentProps }) => {
     setIsOpen(false)
     setPostContent('')
   }
-console.log(deleteOpenModal)
-
+const handleDelete = (data: CommentProps) => {
+  setDeleteComment(data)
+  setDeleteOpenModal(true)
+}
   return (
     <>
       {/* Comment container */}
@@ -120,12 +123,12 @@ console.log(deleteOpenModal)
           {data.user.username === currentUser.username ? (
             <div className="sm:hidden flex gap-2">
               <button className="flex items-center gap-1 text-primary-pink-400 rounded-sm p-1 transition duration-300 ease-in-out hover:text-primary-pink-200 hover:cursor-pointer font-bold"
-              onClick={() => setDeleteOpenModal(true)}
+              onClick={() => handleDelete(data)}
               >
                 <Delete /> <span>Delete</span>
               </button>
               <button 
-                onClick={() => setIsOpen(true)}
+                onClick={() => setIsOpen(!isOpen)}
                 className="flex items-center gap-1 text-primary-purple-600 rounded-sm p-1 transition duration-300 ease-in-out hover:text-primary-purple-200 hover:cursor-pointer font-bold">
                 <Edit /> <span>Edit</span>
               </button>
@@ -153,9 +156,9 @@ console.log(deleteOpenModal)
               <p className="text-neutral-grey-800 font-semibold">
                 {data.user.username}
               </p>
-              <p className="text-neutral-grey-500">
-                <p>{timeAgo.format(new Date(data.createdAt))}</p>
-              </p>
+              
+                <p className="text-neutral-grey-500">{timeAgo.format(new Date(data.createdAt))}</p>
+              
               {data.user.username === currentUser.username && (
                 <span className="bg-primary-purple-600 px-2 text-neutral-50 font-bold rounded-md">
                   you
@@ -165,13 +168,13 @@ console.log(deleteOpenModal)
             {data.user.username === currentUser.username ? (
               <div className="hidden md:flex gap-2">
                 <button className="flex items-center gap-1 text-primary-pink-400 rounded-sm p-1 transition duration-300 ease-in-out hover:text-primary-pink-200 hover:cursor-pointer font-bold"
-                onClick={() => setDeleteOpenModal(true)}
+                onClick={() => handleDelete(data)}
                 >
                   <Delete /> <span>Delete</span>
                 </button>
                 <button
                   className="flex items-center gap-1 text-primary-purple-600 rounded-sm p-1 transition duration-300 ease-in-out hover:text-primary-purple-200 hover:cursor-pointer font-bold"
-                  onClick={() => setIsOpen(true)}
+                  onClick={() => setIsOpen(!isOpen)}
                 >
                   <Edit /> <span>Edit</span>
                 </button>
@@ -221,7 +224,7 @@ console.log(deleteOpenModal)
           {/* Comment text */}
         </div>
       </div>
-      {deleteOpenModal && <DeleteModal/>}
+      {deleteOpenModal && deleteComment && <DeleteModal data={deleteComment} />}
     </>
   );
 };

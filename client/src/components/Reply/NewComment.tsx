@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { useEffect, useId, useRef, useState, type ChangeEvent } from "react";
+import { useEffect, useRef, useState, type ChangeEvent } from "react";
 import type { CommentProps } from "../../types/styles";
 import { useCommentsStore } from "../../store/store";
 import { Button } from "../core/Button";
@@ -13,7 +13,7 @@ export const NewComment = ({
   username?: string;
   data?: CommentProps;
 }) => {
-  const id = useId();
+
   const {
     currentUser,
     data: storeData,
@@ -22,8 +22,7 @@ export const NewComment = ({
     setOpenCommentId,
   } = useCommentsStore();
   const [postContent, setPostContent] = useState<string>(
-    isReply ? `@${username} ` : ""
-  );
+    isReply ? `@${username} ` : "")
 
   const [error, setError] = useState("");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -67,7 +66,7 @@ export const NewComment = ({
     const newComment: CommentProps = {
       content: updateContent,
       createdAt: new Date().toISOString(),
-      id: id,
+      id: Math.floor(Math.random() * 100).toString(),
       replyingTo: username,
       score: 0,
       user: currentUser,
