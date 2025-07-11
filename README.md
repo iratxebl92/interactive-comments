@@ -1,34 +1,15 @@
-# Interactive Comments Section – Full Stack Project
+# Sección de Comentarios Interactiva – Proyecto Frontend
 
-Full-stack implementation of [Frontend Mentor](https://www.frontendmentor.io/challenges/interactive-comments-section-iG1RugEG9)'s **"Interactive Comments Section"** challenge.
+Implementación frontend del reto "Sección de Comentarios Interactiva" de [Frontend Mentor](https://www.frontendmentor.io/challenges/interactive-comments-section-iG1RugEG9).
 
-## 📌 Project Description
-
-This project replicates an interactive comment section with features like replying, editing, deleting, and upvoting/downvoting comments. Unlike the original challenge (frontend-only), this version includes a full backend for data persistence, authentication, and user management.
+## 📌 Descripción del Proyecto
+Este proyecto replica una sección de comentarios interactiva con funcionalidades como responder, editar, eliminar y votar comentarios. Se centra en la lógica de interfaz y experiencia de usuario, gestionando el estado localmente por ahora.
 
 ## 🛠️ Tech Stack
-- **Frontend:** React, TypeScript, Tailwind CSS
-- **Backend:** Node.js, Express
-- **Database:** PostgreSQL (Sequelize)
-
-## 🚀 Features
-
-- ✅ Display comments and replies
-- ✅ Add new comments
-- ✅ Reply to existing comments
-- ✅ Edit and delete own comments
-- ✅ Upvote and downvote comments
-- ✅ User authentication
-- ✅ Persistent data (DB)
-
-
-## 📦 Getting Started
-
-### Prerequisites
-
-- Node.js
-- PostgreSQL
-
+- React + TypeScript
+- Tailwind CSS
+- Zustand (gestión de estado)
+- Vite (entorno de desarrollo)
 
 # Reglas de Interacción - Interactive Comments Project
 
