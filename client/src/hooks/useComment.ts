@@ -3,7 +3,7 @@ import { useCommentsStore } from "../store/store";
 import type { CommentProps } from "../types/styles";
 
 export const useComment = ({data}: {data: CommentProps}) => {
-  const { currentUser, openCommentId, setOpenCommentId, data: storeData, setData, deleteOpenModal, setDeleteOpenModal } = useCommentsStore();
+  const {openCommentId, setOpenCommentId, data: storeData, setData, setDeleteOpenModal } = useCommentsStore();
    
   // Forzar el tipado correcto del ref para evitar problemas de tipado con null
   const textareaRef = useRef<HTMLTextAreaElement>(null) as React.RefObject<HTMLTextAreaElement>;
