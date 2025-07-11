@@ -33,3 +33,10 @@ Este proyecto replica una sección de comentarios interactiva con funcionalidade
 
 ## 🕵️‍♂️ Permisos
 - El usuario actual puede: votar, responder, editar y borrar solo sus comentarios.
+
+## 📦 Instalación
+- [git clone https://github.com/tuusuario/interactive-comments.git](https://github.com/iratxebl92/interactive-comments.git)
+- cd interactive-comments
+- cd client
+- npm install
+- npm run dev
