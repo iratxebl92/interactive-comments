@@ -5,7 +5,8 @@ import type { CommentProps } from "../types/styles";
 export const useComment = ({data}: {data: CommentProps}) => {
   const { currentUser, openCommentId, setOpenCommentId, data: storeData, setData, deleteOpenModal, setDeleteOpenModal } = useCommentsStore();
    
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  // Forzar el tipado correcto del ref para evitar problemas de tipado con null
+  const textareaRef = useRef<HTMLTextAreaElement>(null) as React.RefObject<HTMLTextAreaElement>;
   useEffect(() => {
     if (textareaRef.current) {
       //Si ya está disponible, si textareaRef ya no es null
