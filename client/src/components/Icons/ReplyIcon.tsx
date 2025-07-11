@@ -1,6 +1,4 @@
 
-
-
 export const ReplyIcon = () => {
   return (
     <svg 

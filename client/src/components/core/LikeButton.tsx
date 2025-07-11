@@ -9,9 +9,6 @@ export const LikeButton = ({ data }: { data: CommentProps }) => {
   
   const { handleUpdateScore } = useLikeButton();
 
-  
-
- 
   return (
     <div className="bg-neutral-grey-50 shrink-0 h-10 sm:h-[7rem] w-auto sm:w-10 flex flex-row justify-between sm:flex-col sm:justify-center items-center rounded-md gap-3.5 p-4">
       <button

@@ -1,20 +1,13 @@
 import clsx from "clsx";
-import TimeAgo from "javascript-time-ago";
-import en from "javascript-time-ago/locale/en.json";
 import { LikeButton } from "../core/LikeButton";
-import { Delete, Edit, ReplyIcon } from "../Icons/";
 import { type CommentProps } from "../../types/styles";
 import { useCommentsStore } from "../../store/store";
-import { Button } from "../core/Button";
 import { DeleteModal } from "./DeleteModal";
 import { useComment } from "../../hooks/useComment";
 import { CommentHeader } from "./CommentParts/CommentHeader";
 import { CommentContentText } from "./CommentParts/CommentContentText";
 import { CommentContentEditable } from "./CommentParts/CommentContentEditable";
 import { CommentActionsMobile } from "./CommentParts/CommentActionsMobile";
-
-TimeAgo.addLocale(en);
-const timeAgo = new TimeAgo("en-US");
 
 interface CommentPropsExtended {
   data: CommentProps;

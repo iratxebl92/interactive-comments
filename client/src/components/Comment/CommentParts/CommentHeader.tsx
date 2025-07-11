@@ -1,5 +1,6 @@
 import { Delete, Edit, ReplyIcon } from "../../Icons";
-
+import TimeAgo from "javascript-time-ago";
+import en from "javascript-time-ago/locale/en.json";
 
 interface CommentHeaderProps {
   username: string;
@@ -20,13 +21,15 @@ export const CommentHeader = ({
   onEdit,
   onReply,
 }: CommentHeaderProps) => {
-  const timeAgo = new Date(createdAt);
+  TimeAgo.addLocale(en);
+const timeAgo = new TimeAgo("en-US");
+
   return (
     <div className="flex justify-between items-center">
       <div className="flex gap-2 items-center">
         <img src={image} alt={`User ${username} profile image`} width={35} />
         <p className="text-neutral-grey-800 font-semibold">{username}</p>
-        <p className="text-neutral-grey-500">{timeAgo.toLocaleDateString()}</p>
+        <p className="text-neutral-grey-500">{timeAgo.format(new Date(createdAt))}</p>
         {isOwnComment && (
           <span className="bg-primary-purple-600 px-2 text-neutral-50 font-bold rounded-md">
             you

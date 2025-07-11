@@ -1,4 +1,4 @@
-import clsx from "clsx";
+
 import { Delete, Edit, ReplyIcon } from "../../Icons";
 
 interface CommentActionsMobileProps {
