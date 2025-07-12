@@ -70,7 +70,7 @@ export const useNewComment = ({isReply,
           };
       
           if (data) {
-            const prueba = storeData.map((comment) => {
+            const updatedCommentsWithReply  = storeData.map((comment) => {
               if (comment.id === data.id) {
                 return {
                   ...comment,
@@ -94,7 +94,7 @@ export const useNewComment = ({isReply,
               return comment;
             });
       
-            setData(prueba);
+            setData(updatedCommentsWithReply );
           } else {
             setData((prev) => [...prev, newComment]); // Actualiza el estado en función del valor anterior
           }
